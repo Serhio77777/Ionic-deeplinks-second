@@ -23,18 +23,20 @@ angular.module('starter', ['ionic', 'ionic.native', 'starter.controllers', 'star
   });
 })
 .run(['$ionicPlatform', '$cordovaDeeplinks', '$state', '$timeout', function($ionicPlatform, $cordovaDeeplinks, $state, $timeout) {
-  $ionicPlatform.ready(function() {
-    // Note: route's first argument can take any kind of object as its data,
-    // and will send along the matching object if the route matches the deeplink
-    $cordovaDeeplinks.route({'/account':{ parent:'tab' }}).subscribe(function(match) {
-      alert('Success!');
-      // One of our routes matched, we will quickly navigate to our parent
-      // view to give the user a natural back button flow
-    }, function(nomatch) {
-      alert('Something wrong...');
-      console.warn('No match', nomatch);
+    $ionicPlatform.ready(function() {
+        $cordovaDeeplinks.route({'/account':{ target:'tab-account', parent:'tab.account' }}).subscribe(function(match) {
+            $timeout(function() {
+                $state.go(match.$route.parent, match.$args);
+                $timeout(function() {
+                  $state.go(match.$route.target, match.$args);
+                  alert('Success!');
+                }, 800);
+            }, 100);
+        }, function(nomatch) {
+          alert('Something is wrong...');
+          console.warn('No match', nomatch);
+        });
     });
-  });
 }])
 .config(function($stateProvider, $urlRouterProvider) {
 
