@@ -28,8 +28,8 @@ angular.module('starter', ['ionic', 'ionic.native', 'starter.controllers', 'star
             $timeout(function() {
                 $state.go(match.$route.parent, match.$args);
                 $timeout(function() {
-                  $state.go(match.$route.target, match.$args);
-                  alert('Success!');
+                    $state.go(match.$route.target, match.$args);
+                    alert('Success!');
                 }, 800);
             }, 100);
         }, function(nomatch) {
