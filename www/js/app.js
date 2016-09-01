@@ -24,14 +24,14 @@ angular.module('starter', ['ionic', 'ionic.native', 'starter.controllers', 'star
 })
 .run(['$ionicPlatform', '$cordovaDeeplinks', '$state', '$timeout', function($ionicPlatform, $cordovaDeeplinks, $state, $timeout) {
     $ionicPlatform.ready(function() {
-        $cordovaDeeplinks.route({'/account':{ target:'tab-account', parent:'tab.account' }}).subscribe(function(match) {
+        $cordovaDeeplinks.route({'/account':{ target:'tab-account', parent:'tab.account' }, '/chats':{target:'tab-chats', parent:'tab.chats'}}).subscribe(function(match) {
             $timeout(function() {
                 $state.go(match.$route.parent, match.$args);
                 $timeout(function() {
                     $state.go(match.$route.target, match.$args);
-                    alert('Success!');
                 }, 800);
             }, 100);
+            alert('Success!');
         }, function(nomatch) {
           alert('Something is wrong...');
           console.warn('No match', nomatch);
